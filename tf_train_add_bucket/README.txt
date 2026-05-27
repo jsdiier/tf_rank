@@ -1,0 +1,8 @@
+1.第一次训练，记得清空model文件下的文件，不清空模型会自动load ckpt接着训练
+2.新任务一定要更改hadoop_root路径，改成自己的路径
+3.is_auto_train为0时，模型会按照train_start_day和train_end_day指定的时间范围训练，第一次保持is_auto_train为0，等第一次训练完后，之后的训练都改成1即可
+4.第一次训练，通过luban配置train.sh，进行训练入口文件就可以
+5.训练后需要测试，通过luban配置test.sh，进行测试入口文件就可以
+6.如果是增量训练，修改is_auto_train为1，模型会自动获取上次训练的结束时间作为本次训练的开始时间，训练数据最新没训过的日期作为结束时间
+7.luban例行增量训练，is_auto_train一般设置为1，在本地crontab定时跑train_luban_daily.sh,有新训练数据就会自动提交训练任务
+8.如果没有必要不要在这个文件夹下新增临时文件，增加了也及时删除
