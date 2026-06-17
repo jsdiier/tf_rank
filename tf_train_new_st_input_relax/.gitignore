@@ -1,0 +1,8 @@
+data/*
+!data/.gitkeep
+log/*
+!log/.gitkeep
+model/*
+!model/.gitkeep
+serving_model_0/*
+!serving_model_0/.gitkeep
