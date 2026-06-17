@@ -188,6 +188,7 @@ class Learner:
             if epo >= 0:
                 self.dump_serving_model(end_day, epo)
             self.set_training_mode(True, False)
+        wandb.finish()
 
     def dump_serving_model(self, end_day, epo):
         if self.model is None:

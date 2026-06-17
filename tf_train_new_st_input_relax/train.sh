@@ -1,7 +1,8 @@
 #!/bin/bash
 
 source ./common.conf
-
+export JOB_NAME
+export WANDB_API_KEY=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
 nowt=`date +"%Y%m%d%H%M"`
 
 set -x
@@ -87,3 +88,4 @@ else
 fi
 
 #bash test.sh
+
