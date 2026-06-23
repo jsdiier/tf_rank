@@ -14,7 +14,7 @@ class Model(tf.keras.Model):
         self.dropout_dim = []
         self.summary_writer = None
 
-        self._all_emb_flat_dim = len(model_conf.embedding_slot_ids) * (model_conf.lr_emb_size + model_conf.fm_emb_size)
+        self._all_emb_flat_dim = len(model_conf.embedding_slot_ids) * model_conf.fm_emb_size
         self._query_flat_dim = len(model_conf.query_slots) * model_conf.fm_emb_size
         self._ads_flat_dim = len(model_conf.ads_fea_slots) * model_conf.din_emb_size
 
@@ -34,7 +34,7 @@ class Model(tf.keras.Model):
         #embedding table
         self.emb_fm = tf.keras.layers.Embedding(
             model_conf.feature_size,
-            model_conf.lr_emb_size + model_conf.fm_emb_size,
+            model_conf.fm_emb_size,   # 8
             embeddings_regularizer=regularizers.l2(model_conf.l2_reg))
         #self.emb_lr = tf.keras.layers.Embedding(
         #    model_conf.feature_size,
@@ -499,17 +499,6 @@ class Model(tf.keras.Model):
 
         pooled_output, slot_mask = self.process_and_pool_fused(sid_list, fid_list)
 
-        #lr part
-        lr_indices = self.slot_id_table.lookup(tf.constant(model_conf.lr_slot_ids, dtype=tf.dtypes.int32))
-        lr_emb = tf.gather(pooled_output[:, :, 0], lr_indices, axis=1)
-        lr = tf.reduce_mean(lr_emb, axis=1, keepdims=True)
-
-        #fm part
-        full_emb = pooled_output[:, :, 1:]
-        square_sum_fm_embedding = tf.math.square(tf.reduce_mean(full_emb, 1))
-        sum_square_fm_embedding = tf.reduce_mean(tf.math.square(full_emb), 1)
-        fm = 0.5 * tf.math.subtract(square_sum_fm_embedding, sum_square_fm_embedding)
-
         #embedding part
         emb_slot_indices = self.slot_id_table.lookup(tf.constant(model_conf.embedding_slot_ids, dtype=tf.dtypes.int32))
         all_emb = tf.gather(pooled_output, emb_slot_indices, axis=1)
@@ -517,7 +506,7 @@ class Model(tf.keras.Model):
 
         #din part
         query_slot_indices = self.slot_id_table.lookup(tf.constant(model_conf.query_slots, dtype=tf.dtypes.int32))
-        query_input = tf.gather(pooled_output[:, :, 1:], query_slot_indices, axis=1)
+        query_input = tf.gather(pooled_output, query_slot_indices, axis=1)
         query_input = tf.reshape(query_input, [-1, self._query_flat_dim])
         query_input = self.query_dense(query_input)
 
@@ -534,7 +523,7 @@ class Model(tf.keras.Model):
                 seq_mask = tf.gather(slot_mask_v2, seq_slot_indices, axis=1)
             else:
                 seq_slot_indices = self.slot_id_table.lookup(tf.constant(seq_sid_ids, dtype=tf.dtypes.int32))
-                seq_input = tf.gather(pooled_output[:, :, 1:], seq_slot_indices, axis=1)
+                seq_input = tf.gather(pooled_output, seq_slot_indices, axis=1)
                 seq_mask = tf.gather(slot_mask, seq_slot_indices, axis=1)
 
             att_output = self.attention_din_ads(query_input, seq_input, seq_mask, ads_emb, seq_name, [50, 20])
@@ -550,18 +539,16 @@ class Model(tf.keras.Model):
 
         if self.summary_writer is not None and step % self.histogram_freq == 0:
             with self.summary_writer.as_default():
-                tf.summary.scalar('layer/lr', tf.reduce_mean(lr), step=step)
-                tf.summary.scalar('layer/fm', tf.reduce_mean(fm), step=step)
                 tf.summary.scalar('layer/deep', tf.reduce_mean(deep), step=step)
                 tf.summary.scalar('layer/deep1', tf.reduce_mean(deep1), step=step)
                 tf.summary.scalar('layer/deep2', tf.reduce_mean(deep2), step=step)
                 tf.summary.scalar('layer/deep3', tf.reduce_mean(deep3), step=step)
                 tf.summary.scalar('layer/deep4', tf.reduce_mean(deep4), step=step)
 
-        expert1 = tf.expand_dims(tf.concat([lr, fm, deep1], axis=1), axis=2)
-        expert2 = tf.expand_dims(tf.concat([lr, fm, deep2], axis=1), axis=2)
-        expert3 = tf.expand_dims(tf.concat([lr, fm, deep3], axis=1), axis=2)
-        expert4 = tf.expand_dims(tf.concat([lr, fm, deep4], axis=1), axis=2)
+        expert1 = tf.expand_dims(deep1, axis=2)
+        expert2 = tf.expand_dims(deep2, axis=2)
+        expert3 = tf.expand_dims(deep3, axis=2)
+        expert4 = tf.expand_dims(deep4, axis=2)
 
         gate1 = tf.expand_dims(self.gate_dense(deep, "gate1", self.training, [128,4], [tf.nn.swish, tf.nn.softmax]), axis=1)
         gate2 = tf.expand_dims(self.gate_dense(deep, "gate2", self.training, [128,4], [tf.nn.swish, tf.nn.softmax]), axis=1)
