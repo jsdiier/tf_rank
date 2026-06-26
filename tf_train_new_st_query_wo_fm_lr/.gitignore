@@ -1,0 +1,8 @@
+log/*
+!log/.gitkeep
+model/*
+!model/.gitkeep
+serving_model_0/*
+!serving_model_0/.gitkeep
+__pycache__/
+*.pyc
