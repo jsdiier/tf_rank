@@ -11,10 +11,10 @@ l2_reg = 0.0001
 use_bn = True
 use_lhuc = True
 
-feature_size = 6000000
-num_buckets = 8388608
-ads_fea_size = 2000000
-ads_num_buckets = 2097152
+feature_size = 4500000
+num_buckets = 4194304
+ads_fea_size = 1300000
+ads_num_buckets = 1048576
 fm_emb_size = 8
 lr_emb_size = 1
 din_emb_size = 8
