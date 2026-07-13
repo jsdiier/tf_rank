@@ -12,7 +12,6 @@ ckpt_day=$train_end_day
 : ${is_auto_train:=0}
 if [ $is_auto_train -eq 1 ];then
     current_date=$(date +%Y%m%d)
-    #current_date=20260504
     temp_date="$current_date"
     max_days=20
     found=0
@@ -59,6 +58,9 @@ fi
 
 exec 1>"./log/train_log_${train_end_day}_$nowt" 2>&1
 
+bday=`date -d"$train_start_day" +%Y%m%d`
+eday=`date -d"$train_end_day" +%Y%m%d`
+
 HADOOP_HDFS_HOME=/usr/local/hadoop-current
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HADOOP_HDFS_HOME/lib/native:${JAVA_HOME}/jre/lib/amd64/server
 CLASSPATH=$(${HADOOP_HDFS_HOME}/bin/hadoop classpath --glob) \
@@ -83,3 +85,5 @@ if [ $? -eq 0 ]; then
 else
      echo "train failed"
 fi
+
+#bash test.sh
