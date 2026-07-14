@@ -535,18 +535,18 @@ class Model(tf.keras.Model):
         #embedding part
         emb_slot_indices = self.slot_id_table.lookup(tf.constant(model_conf.embedding_slot_ids, dtype=tf.dtypes.int32))
         all_emb = tf.gather(pooled_output, emb_slot_indices, axis=1)
-        all_emb = tf.reshape(all_emb, [tf.shape(all_emb)[0], -1])
+        all_emb = tf.reshape(all_emb, [-1, self._all_emb_flat_dim])
 
         #din part
         query_slot_indices = self.slot_id_table.lookup(tf.constant(model_conf.query_slots, dtype=tf.dtypes.int32))
         query_input = tf.gather(pooled_output, query_slot_indices, axis=1)
-        query_input = tf.reshape(query_input, [tf.shape(query_input)[0], -1])
+        query_input = tf.reshape(query_input, [-1, self._query_flat_dim])
         query_input = self.query_dense(query_input)
 
         pooled_output_v2, slot_mask_v2 = self.process_and_pool_fused(sid_list, fid_list, table_type='din_ads_table')
         ads_slot_indices = self.slot_id_table_din_ads.lookup(tf.constant(model_conf.ads_fea_slots, dtype=tf.dtypes.int32))
         ads_emb = tf.gather(pooled_output_v2, ads_slot_indices, axis=1)
-        ads_emb = tf.reshape(ads_emb, [tf.shape(ads_emb)[0], -1])
+        ads_emb = tf.reshape(ads_emb, [-1, self._ads_flat_dim])
 
         att_outputs = []
         for seq_name, seq_sid_ids in model_conf.seq_slot_dict.items():
