@@ -356,8 +356,7 @@ class Model(tf.keras.Model):
         return pooled_output, slot_mask
 
     def ads_seq_cross_layer(self, name, nn_inputs, ads_emb, ads_hidden_dim=64, ads_output_dim=1):
-        #ads_input_dim = nn_inputs.get_shape().as_list()[-1]
-        ads_input_dim = tf.shape(nn_inputs)[-1]
+        ads_input_dim = nn_inputs.shape[-1]
 
         layer_key = name
 
@@ -416,15 +415,14 @@ class Model(tf.keras.Model):
                     nn_inputs=key,
                     ads_emb=ads_emb,
                     ads_hidden_dim=64,
-                    ads_output_dim=tf.shape(key)[-1])
+                    ads_output_dim=model_conf.fm_emb_size)
 
-        query_dim = tf.shape(query)[-1]
         query = tf.tile(query, multiples=[1, ads_key.shape[1]])
         query = tf.reshape(query, shape=[-1, ads_key.shape[1], ads_key.shape[2]])
 
         din_all_output = tf.concat([query, ads_key, query - ads_key, query * ads_key], axis=-1)
 
-        att_hidden_units = att_hidden_units + [query_dim]
+        att_hidden_units = att_hidden_units + [model_conf.fm_emb_size]
 
         att_layer_key = name
 
