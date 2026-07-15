@@ -10,7 +10,7 @@ set -e
 
 CONF_FILE=./common.conf
 
-#exec 1>"./log/test_log_${test_end_day}_$nowt" 2>&1
+exec 1>"./log/test_log_${test_end_day}_$nowt" 2>&1
 
 if [ -z "$day_list" ];then
     bt=`date -d"$test_start_day" +"%s"`

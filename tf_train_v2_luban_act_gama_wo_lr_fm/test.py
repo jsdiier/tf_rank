@@ -38,8 +38,8 @@ class Learner:
         model = self.model
 
         #load ckpt
-        #ckpt_path = self.get_model_checkpoint_from_file(model_conf.done_file_path)
-        ckpt_path="model/checkpoints/20260630_0/"
+        ckpt_path = self.get_model_checkpoint_from_file(model_conf.done_file_path)
+        # ckpt_path="model/checkpoints/20260630_0/"
         if ckpt_path is not None:
             print("load model from checkpoint:", ckpt_path)
             ckpt = tf.train.Checkpoint(model=model, optimizer=model.optimizer)
