@@ -1,0 +1,706 @@
+submit_luban.sh: line 3: /home/luban/.bash_profile: No such file or directory
++ set -e
++ LOCK_FILE=my_job.lock
++ '[' -f my_job.lock ']'
++ echo 2181044
++ trap cleanup EXIT
++ echo 'Start job...'
+Start job...
++ CONF_FILE=./common.conf
++ ckpt_day=20260430
++ : 0
++ '[' 0 -eq 1 ']'
++ API_URL=http://10.14.127.44:80/api/v3/jobs
++ PROJECT_UUID=1b108a55ac6c4893bb427c6efa0a80d5
++ TOKEN=185abf3ee9c8454ab21f534ec9f25330
++ HEADERS=(-H 'Content-Type: application/json' -H "JIANSHU-PROJECT-TOKEN: ${TOKEN}" -H "JIANSHU-PROJECT-UUID: ${PROJECT_UUID}")
++ echo 正在提交任务...
+正在提交任务...
+++ curl -s -X POST http://10.14.127.44:80/api/v3/jobs -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5' -d '{
+    "userUuid": "fb8b6210117a4930b598581b5a1da5fa",
+    "projectUuid": "1b108a55ac6c4893bb427c6efa0a80d5",
+    "imageUuid": "e1389ab30bb145d1b72b77f738310a11",
+    "scriptPath": "/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh",
+    "scriptSourceType": "file",
+    "resourceUuid": "8d053ced94df4883837eb91a1afa9a87",
+    "regionName": "nmg01",
+    "name": "tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST",
+    "level": "PRO",
+    "backoffLimit": 1,
+    "priority": 1,
+    "volumeRegions":[]
+}'
++ RESPONSE='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498429,"dedicatedHostingIP":false,"id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"submitting","updateTime":1783048498429,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498429,"dedicatedHostingIP":false,"id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"submitting","updateTime":1783048498429,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.appId
++ JOB_UUID=k8s-job-2lstss-1783048498407
++ [[ k8s-job-2lstss-1783048498407 == \n\u\l\l ]]
++ [[ -z k8s-job-2lstss-1783048498407 ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60
++ QUERY_URL='http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa'
+++ curl -s -X GET 'http://10.14.127.44:80/api/v3/jobs/k8s-job-2lstss-1783048498407?userUuid=fb8b6210117a4930b598581b5a1da5fa' -H 'Content-Type: application/json' -H 'JIANSHU-PROJECT-TOKEN: 185abf3ee9c8454ab21f534ec9f25330' -H 'JIANSHU-PROJECT-UUID: 1b108a55ac6c4893bb427c6efa0a80d5'
++ STATUS_JSON='{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
+++ jq -r .data.status
+++ echo '{"code":0,"data":{"activeDeadlineSeconds":1296000,"appId":"k8s-job-2lstss-1783048498407","backoffCount":0,"backoffLimit":1,"createTime":1783048498000,"dedicatedHostingIP":false,"hostIp":"10.12.77.11","id":1746499,"image":{"comment":"rank-a6000","desc":"rank-a6000","uuid":"e1389ab30bb145d1b72b77f738310a11"},"ip":"10.12.77.11","jobName":"tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot_TEST","jobType":"JOB","monitorUrl":"http://monitor.ml.didiglobal.com/d/a6nrotRvz/lts-pods?refresh=5m&orgId=1&var-datasource=prometheus&var-container=All&var-namespace=100003-ns&var-pod=k8s-job-2lstss-1783048498407","project":{"desc":"国际化外卖","projectId":100003,"projectName":"Food-MP-Strategy","userName":"lijianli","uuid":"1b108a55ac6c4893bb427c6efa0a80d5"},"region":"nmg01","resource":{"cpuCount":12,"desc":"1GPU/45G/12CPU/64G","gpuCount":48,"groupName":"PRO_JOB","memCount":64,"name":"生产1卡(L20)","tagId":"135","uuid":"8d053ced94df4883837eb91a1afa9a87"},"scriptPath":"/nfs/dataset-ofs-rank-ssl/chenpinyuan/tf_rank/tf_train_new_st_input_relax_wo_lr_fm_wo_wandb_query_slot/test.sh","status":"running","updateTime":1783048507000,"user":{"name":"chenpinyuan","uuid":"fb8b6210117a4930b598581b5a1da5fa"}},"msg":"success"}'
++ RAW_STATUS=running
+++ echo running
+++ tr '[:lower:]' '[:upper:]'
++ STATUS=RUNNING
++ [[ RUNNING == \S\U\C\C\E\E\D\E\D ]]
++ [[ RUNNING == \C\O\M\P\L\E\T\E\D ]]
++ [[ RUNNING == \S\U\C\C\E\S\S ]]
++ [[ RUNNING == \F\A\I\L\E\D ]]
++ [[ RUNNING == \E\R\R\O\R ]]
++ [[ RUNNING == \S\T\O\P\P\E\D ]]
++ [[ RUNNING == \n\u\l\l ]]
++ true
++ sleep 60

@@ -584,3 +584,4 @@ class Model(tf.keras.Model):
             final_pred = buy_pred
             return final_pred, cat_pred, click_pred, ext_pred
         return buy_pred, cat_pred, click_pred, ext_pred,gate1, gate2, gate3,gate4
+
